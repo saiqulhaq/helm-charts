@@ -2,16 +2,11 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
-secrets:
-  s3:
-    accessKey: "acc"
-    secretKey: "sec"
-
 virtualHosts:
   - hostnames:
       - a.ppy.sh
-    bucket: a.ppy.sh
-    region: us-west-1
+    cacheKey: a.ppy.sh
+    upstream: xxxx.cloudfront.net
     defaultPath: /blank.png
     cache:
       200: 48h
@@ -67,7 +62,7 @@ updateStrategy:
     maxSurge: 1
 
 image:
-  repository: pppy/s3-nginx-proxy
+  repository: saiqulhaq/cloudfront-nginx-proxy
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
   # tag: latest
