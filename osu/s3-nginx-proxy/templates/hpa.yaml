@@ -2,6 +2,7 @@
 apiVersion: autoscaling/v2beta1
 kind: HorizontalPodAutoscaler
 metadata:
+  namespace: default
   name: {{ include "s3-nginx-proxy-chart.fullname" . }}
   labels:
     {{- include "s3-nginx-proxy-chart.labels" . | nindent 4 }}
@@ -17,12 +18,16 @@ spec:
     - type: Resource
       resource:
         name: cpu
-        targetAverageUtilization: {{ .Values.autoscaling.targetCPUUtilizationPercentage }}
+        target:
+          averageUtilization: {{ .Values.autoscaling.targetCPUUtilizationPercentage }}
+          type: Utilization
     {{- end }}
     {{- if .Values.autoscaling.targetMemoryUtilizationPercentage }}
     - type: Resource
       resource:
         name: memory
-        targetAverageUtilization: {{ .Values.autoscaling.targetMemoryUtilizationPercentage }}
+        target:
+          averageUtilization: {{ .Values.autoscaling.targetMemoryUtilizationPercentage }}
+          type: Utilization
     {{- end }}
 {{- end }}
