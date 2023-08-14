@@ -53,3 +53,10 @@ spec:
           {{- end }}
     {{- end }}
 {{- end }}
+# this one is for Digital Ocean load balancer
+{{- if .Values.ingress.loadBalancerIP -}}
+status:
+  loadBalancer:
+    ingress:
+    - ip: {{ .Values.ingress.loadBalancerIP }}
+{{- end }}
